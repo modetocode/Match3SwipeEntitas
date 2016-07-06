@@ -11,12 +11,12 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool {
     }
 
     public void Initialize() {
-        IList<GameBoardElementType> possibleElementTypes = new List<GameBoardElementType> {
-            GameBoardElementType.Amber, GameBoardElementType.Emerald, GameBoardElementType.Prism, GameBoardElementType.Ruby, GameBoardElementType.Sapphire };
+        IList<TileType> possibleElementTypes = new List<TileType> {
+            TileType.Amber, TileType.Emerald, TileType.Prism, TileType.Ruby, TileType.Sapphire };
         var gameBoard = this.pool.CreateEntity().AddGameBoard(5, 5, possibleElementTypes).gameBoard;
         for (int i = 0; i < gameBoard.rowCount; i++) {
             for (int j = 0; j < gameBoard.columnCount; j++) {
-                GameBoardElementType type = gameBoard.possibleElements[Random.Range(0, gameBoard.possibleElements.Count)];
+                TileType type = gameBoard.possibleElements[Random.Range(0, gameBoard.possibleElements.Count)];
                 CreateGameBoardComponent(i, j, type);
             }
         }
@@ -32,9 +32,9 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool {
         var gameBoard = entities.SingleEntity().gameBoard;
     }
 
-    private Entity CreateGameBoardComponent(int positionX, int positionY, GameBoardElementType type) {
+    private Entity CreateGameBoardComponent(int positionX, int positionY, TileType type) {
         return this.pool.CreateEntity()
-            .AddGameBoardElement(type)
+            .AddTile(type)
             .AddPosition(positionX, positionY);
     }
 }

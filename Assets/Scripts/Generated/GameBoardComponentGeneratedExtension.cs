@@ -12,7 +12,7 @@ namespace Entitas {
 
         public bool hasGameBoard { get { return HasComponent(ComponentIds.GameBoard); } }
 
-        public Entity AddGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<GameBoardElementType> newPossibleElements) {
+        public Entity AddGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<TileType> newPossibleElements) {
             var component = CreateComponent<GameBoardComponent>(ComponentIds.GameBoard);
             component.rowCount = newRowCount;
             component.columnCount = newColumnCount;
@@ -20,7 +20,7 @@ namespace Entitas {
             return AddComponent(ComponentIds.GameBoard, component);
         }
 
-        public Entity ReplaceGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<GameBoardElementType> newPossibleElements) {
+        public Entity ReplaceGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<TileType> newPossibleElements) {
             var component = CreateComponent<GameBoardComponent>(ComponentIds.GameBoard);
             component.rowCount = newRowCount;
             component.columnCount = newColumnCount;
@@ -41,7 +41,7 @@ namespace Entitas {
 
         public bool hasGameBoard { get { return gameBoardEntity != null; } }
 
-        public Entity SetGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<GameBoardElementType> newPossibleElements) {
+        public Entity SetGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<TileType> newPossibleElements) {
             if (hasGameBoard) {
                 throw new EntitasException("Could not set gameBoard!\n" + this + " already has an entity with GameBoardComponent!",
                     "You should check if the pool already has a gameBoardEntity before setting it or use pool.ReplaceGameBoard().");
@@ -51,7 +51,7 @@ namespace Entitas {
             return entity;
         }
 
-        public Entity ReplaceGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<GameBoardElementType> newPossibleElements) {
+        public Entity ReplaceGameBoard(int newRowCount, int newColumnCount, System.Collections.Generic.IList<TileType> newPossibleElements) {
             var entity = gameBoardEntity;
             if (entity == null) {
                 entity = SetGameBoard(newRowCount, newColumnCount, newPossibleElements);

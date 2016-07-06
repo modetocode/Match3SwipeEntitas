@@ -8,26 +8,29 @@
 //------------------------------------------------------------------------------
 public static class ComponentIds {
     public const int GameBoard = 0;
-    public const int GameBoardElement = 1;
-    public const int Input = 2;
-    public const int Position = 3;
-    public const int View = 4;
+    public const int Input = 1;
+    public const int Position = 2;
+    public const int Tile = 3;
+    public const int TileSequence = 4;
+    public const int View = 5;
 
-    public const int TotalComponents = 5;
+    public const int TotalComponents = 6;
 
     public static readonly string[] componentNames = {
         "GameBoard",
-        "GameBoardElement",
         "Input",
         "Position",
+        "Tile",
+        "TileSequence",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(GameBoardComponent),
-        typeof(GameBoardElementComponent),
         typeof(InputComponent),
         typeof(PositionComponent),
+        typeof(TileComponent),
+        typeof(TileSequenceComponent),
         typeof(ViewComponent)
     };
 }

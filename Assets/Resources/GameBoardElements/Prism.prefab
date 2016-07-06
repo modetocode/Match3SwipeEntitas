@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 424094}
   - 212: {fileID: 21286718}
   - 65: {fileID: 6554628}
+  - 114: {fileID: 11416086}
   m_Layer: 0
   m_Name: Prism
   m_TagString: Untagged
@@ -41,6 +42,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11416086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c571fc87beaa6064f87d3e428f69421c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21286718
 SpriteRenderer:
   m_ObjectHideFlags: 1

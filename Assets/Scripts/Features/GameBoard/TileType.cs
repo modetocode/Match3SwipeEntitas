@@ -1,4 +1,4 @@
-﻿public enum GameBoardElementType {
+﻿public enum TileType {
     Amber,
     Emerald,
     Prism,

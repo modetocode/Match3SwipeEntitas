@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 1626413395}
+  inputController: {fileID: 29674751}
 --- !u!4 &879592334
 Transform:
   m_ObjectHideFlags: 0

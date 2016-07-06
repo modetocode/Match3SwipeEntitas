@@ -6,5 +6,5 @@ using System.Collections.Generic;
 public class GameBoardComponent : IComponent {
     public int rowCount;
     public int columnCount;
-    public IList<GameBoardElementType> possibleElements;
+    public IList<TileType> possibleElements;
 }
