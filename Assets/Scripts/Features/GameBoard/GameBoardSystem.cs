@@ -17,7 +17,7 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool {
         for (int i = 0; i < gameBoard.rowCount; i++) {
             for (int j = 0; j < gameBoard.columnCount; j++) {
                 TileType type = gameBoard.possibleElements[Random.Range(0, gameBoard.possibleElements.Count)];
-                CreateGameBoardComponent(i, j, type);
+                this.pool.CreateTile(i, j, type);
             }
         }
     }
@@ -30,11 +30,5 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool {
 
     public void Execute(List<Entity> entities) {
         var gameBoard = entities.SingleEntity().gameBoard;
-    }
-
-    private Entity CreateGameBoardComponent(int positionX, int positionY, TileType type) {
-        return this.pool.CreateEntity()
-            .AddTile(type)
-            .AddPosition(positionX, positionY);
     }
 }

@@ -11,4 +11,8 @@
     public static class LevelRun {
         public const float HeaderAndFooterScreenSizePercentage = 0.25f;
     }
+
+    public static class Tags {
+        public const string TileTag = "Tile";
+    }
 }

@@ -10,23 +10,18 @@ public class GameController : MonoBehaviour {
     private InputController inputController;
 
     private Systems systems;
-
-    private bool TouchInProgress { get; set; }
-    private bool GameInProgress { get; set; }
     private Pool Pool { get { return Pools.pool; } }
 
     void Start() {
         this.StartGame();
     }
 
-    void Update() {
+    void FixedUpdate() {
         this.systems.Execute();
     }
 
     private void StartGame() {
         this.InitializeSystems();
-        this.GameInProgress = true;
-        this.SubscribeForInputEvents();
     }
 
     private void InitializeSystems() {
@@ -37,46 +32,20 @@ public class GameController : MonoBehaviour {
 
     private Systems CreateSystems(Pool pool) {
         return new Feature("systems")
-            .Add(pool.CreateSystem<ProcessInputSystem>())
+            //Init
+            .Add(pool.CreateSystem<IncrementTickSystem>())
             .Add(pool.CreateSystem<GameBoardSystem>())
-            .Add(pool.CreateSystem<TileViewSystem>())
+
+            //Update
+            .Add(pool.CreateSystem<UpdateTileSequenceSystem>())
+            .Add(pool.CreateSystem<AddViewSystem>())
+            .Add(pool.CreateSystem<RenderPositionSystem>())
+            .Add(pool.CreateSystem<ProcessObjectSelectedInputSystem>())
+
+            //Destroy
+            .Add(pool.CreateSystem<RemoveTileSequenceSystem>())
+            .Add(pool.CreateSystem<RemoveViewSystem>())
+            .Add(pool.CreateSystem<DestroySystem>())
             ;
-    }
-
-    private void SubscribeForInputEvents() {
-        this.inputController.TouchStarted += StartTouch;
-        this.inputController.TouchEnded += EndTouch;
-        this.inputController.TouchHit += OnTouchHit;
-    }
-
-    private void UnsubscribeFromInputEvents() {
-        this.inputController.TouchStarted -= StartTouch;
-        this.inputController.TouchEnded -= EndTouch;
-        this.inputController.TouchHit -= OnTouchHit;
-    }
-
-    private void StartTouch() {
-        this.TouchInProgress = true;
-        this.Pool.CreateEntity().IsTileSequence(true);
-    }
-
-    private void EndTouch() {
-        this.TouchInProgress = false;
-        //TODO finish this
-        //this.LevelRunManager.FinishSelection();
-    }
-
-    private void OnTouchHit(GameObject gameObject) {
-        if (!this.TouchInProgress) {
-            return;
-        }
-
-        TileView tileView = gameObject.GetComponent<TileView>();
-        if (tileView == null) {
-            return;
-        }
-
-        Debug.Log("new element: " + tileView.Tile.position.x + tileView.Tile.position.y);
-        //this.LevelRunManager.ProcessTileForSelection(tileComponent.Tile);
     }
 }

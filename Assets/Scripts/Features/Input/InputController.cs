@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Entitas;
 using UnityEngine;
 
 /// <summary>
@@ -6,15 +6,10 @@ using UnityEngine;
 /// </summary>
 public class InputController : MonoBehaviour {
 
-    /// <summary>
-    /// Event that is thrown when a gameobject with collider is hit during touch. Two consecutive events for the same GameObject are avoided and cannot happen.
-    /// </summary>
-    public event Action<GameObject> TouchHit;
-    public event Action TouchStarted;
-    public event Action TouchEnded;
-
     private int touchFingerId = -1;
     private GameObject lastObjectTouchHit = null;
+
+    private Pool InputPool { get { return Pools.pool; } }
 
     public void Update() {
         this.HandleTouchInput();
@@ -27,9 +22,7 @@ public class InputController : MonoBehaviour {
             // Only one finger will be tracked; If the player has already put a finger on the screen the other fingers will be unregistered
             if (currentTouch.phase == TouchPhase.Began && touchFingerId == -1) {
                 touchFingerId = currentTouch.fingerId;
-                if (this.TouchStarted != null) {
-                    this.TouchStarted();
-                }
+                this.InputPool.isTouchInProgress = true;
             }
 
             if (touchFingerId != currentTouch.fingerId) {
@@ -51,10 +44,7 @@ public class InputController : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 100)) {
                 GameObject hitObject = hit.collider.gameObject;
                 if (!hitObject.Equals(this.lastObjectTouchHit)) {
-                    if (this.TouchHit != null) {
-                        this.TouchHit(hitObject);
-                    }
-
+                    this.InputPool.CreateEntity().AddObjectSelectedInput(hitObject);
                     this.lastObjectTouchHit = hitObject;
                 }
 
@@ -63,10 +53,7 @@ public class InputController : MonoBehaviour {
             if (currentTouch.phase == TouchPhase.Ended) {
                 this.touchFingerId = -1;
                 this.lastObjectTouchHit = null;
-                if (this.TouchEnded != null) {
-                    this.TouchEnded();
-                }
-
+                this.InputPool.isTouchInProgress = false;
             }
         }
     }

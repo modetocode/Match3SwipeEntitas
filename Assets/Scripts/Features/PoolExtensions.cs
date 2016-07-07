@@ -1,23 +1,13 @@
 ﻿using Entitas;
 using System;
-using UnityEngine;
 
-public static class ViewInstantiator {
+public static class PoolExtensions {
 
-    private static readonly Transform viewContainer = new GameObject("Views").transform;
-
-    public static TileView InstantiateTile(Entity tileEntity) {
-        if (!tileEntity.hasTile) {
-            throw new InvalidOperationException("entity should have tile component");
-        }
-
-        var tile = tileEntity.tile;
-        var type = tile.tileType;
-        var resourceTemplate = Resources.Load<TileView>(GetTileResourcePath(type));
-        var newObject = UnityEngine.Object.Instantiate(resourceTemplate);
-        newObject.Initialize(tileEntity);
-        newObject.transform.SetParent(viewContainer);
-        return newObject;
+    public static Entity CreateTile(this Pool pool, int positionX, int positionY, TileType type) {
+        return pool.CreateEntity()
+            .AddTile(type)
+            .AddPosition(positionX, positionY)
+            .AddResource(GetTileResourcePath(type));
     }
 
     private static string GetTileResourcePath(TileType type) {

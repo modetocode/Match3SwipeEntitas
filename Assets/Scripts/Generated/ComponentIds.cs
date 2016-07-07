@@ -7,30 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public static class ComponentIds {
-    public const int GameBoard = 0;
-    public const int Input = 1;
-    public const int Position = 2;
-    public const int Tile = 3;
-    public const int TileSequence = 4;
-    public const int View = 5;
+    public const int Destroy = 0;
+    public const int GameBoard = 1;
+    public const int ObjectSelectedInput = 2;
+    public const int Position = 3;
+    public const int Resource = 4;
+    public const int Tick = 5;
+    public const int Tile = 6;
+    public const int TileSelected = 7;
+    public const int TileSequence = 8;
+    public const int TouchInProgress = 9;
+    public const int View = 10;
 
-    public const int TotalComponents = 6;
+    public const int TotalComponents = 11;
 
     public static readonly string[] componentNames = {
+        "Destroy",
         "GameBoard",
-        "Input",
+        "ObjectSelectedInput",
         "Position",
+        "Resource",
+        "Tick",
         "Tile",
+        "TileSelected",
         "TileSequence",
+        "TouchInProgress",
         "View"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(DestroyComponent),
         typeof(GameBoardComponent),
-        typeof(InputComponent),
+        typeof(ObjectSelectedInputComponent),
         typeof(PositionComponent),
+        typeof(ResourceComponent),
+        typeof(TickComponent),
         typeof(TileComponent),
+        typeof(TileSelectedComponent),
         typeof(TileSequenceComponent),
+        typeof(TouchInProgressComponent),
         typeof(ViewComponent)
     };
 }

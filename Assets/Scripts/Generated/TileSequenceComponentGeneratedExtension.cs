@@ -8,24 +8,58 @@
 //------------------------------------------------------------------------------
 namespace Entitas {
     public partial class Entity {
-        static readonly TileSequenceComponent tileSequenceComponent = new TileSequenceComponent();
+        public TileSequenceComponent tileSequence { get { return (TileSequenceComponent)GetComponent(ComponentIds.TileSequence); } }
 
-        public bool isTileSequence {
-            get { return HasComponent(ComponentIds.TileSequence); }
-            set {
-                if (value != isTileSequence) {
-                    if (value) {
-                        AddComponent(ComponentIds.TileSequence, tileSequenceComponent);
-                    } else {
-                        RemoveComponent(ComponentIds.TileSequence);
-                    }
-                }
-            }
+        public bool hasTileSequence { get { return HasComponent(ComponentIds.TileSequence); } }
+
+        public Entity AddTileSequence(System.Collections.Generic.IList<Entitas.Entity> newSequence) {
+            var component = CreateComponent<TileSequenceComponent>(ComponentIds.TileSequence);
+            component.sequence = newSequence;
+            return AddComponent(ComponentIds.TileSequence, component);
         }
 
-        public Entity IsTileSequence(bool value) {
-            isTileSequence = value;
+        public Entity ReplaceTileSequence(System.Collections.Generic.IList<Entitas.Entity> newSequence) {
+            var component = CreateComponent<TileSequenceComponent>(ComponentIds.TileSequence);
+            component.sequence = newSequence;
+            ReplaceComponent(ComponentIds.TileSequence, component);
             return this;
+        }
+
+        public Entity RemoveTileSequence() {
+            return RemoveComponent(ComponentIds.TileSequence);
+        }
+    }
+
+    public partial class Pool {
+        public Entity tileSequenceEntity { get { return GetGroup(Matcher.TileSequence).GetSingleEntity(); } }
+
+        public TileSequenceComponent tileSequence { get { return tileSequenceEntity.tileSequence; } }
+
+        public bool hasTileSequence { get { return tileSequenceEntity != null; } }
+
+        public Entity SetTileSequence(System.Collections.Generic.IList<Entitas.Entity> newSequence) {
+            if (hasTileSequence) {
+                throw new EntitasException("Could not set tileSequence!\n" + this + " already has an entity with TileSequenceComponent!",
+                    "You should check if the pool already has a tileSequenceEntity before setting it or use pool.ReplaceTileSequence().");
+            }
+            var entity = CreateEntity();
+            entity.AddTileSequence(newSequence);
+            return entity;
+        }
+
+        public Entity ReplaceTileSequence(System.Collections.Generic.IList<Entitas.Entity> newSequence) {
+            var entity = tileSequenceEntity;
+            if (entity == null) {
+                entity = SetTileSequence(newSequence);
+            } else {
+                entity.ReplaceTileSequence(newSequence);
+            }
+
+            return entity;
+        }
+
+        public void RemoveTileSequence() {
+            DestroyEntity(tileSequenceEntity);
         }
     }
 
