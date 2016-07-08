@@ -12,13 +12,13 @@ namespace Entitas {
 
         public bool hasView { get { return HasComponent(ComponentIds.View); } }
 
-        public Entity AddView(ViewController newController) {
+        public Entity AddView(IViewController newController) {
             var component = CreateComponent<ViewComponent>(ComponentIds.View);
             component.controller = newController;
             return AddComponent(ComponentIds.View, component);
         }
 
-        public Entity ReplaceView(ViewController newController) {
+        public Entity ReplaceView(IViewController newController) {
             var component = CreateComponent<ViewComponent>(ComponentIds.View);
             component.controller = newController;
             ReplaceComponent(ComponentIds.View, component);

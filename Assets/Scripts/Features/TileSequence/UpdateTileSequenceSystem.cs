@@ -1,7 +1,6 @@
 ﻿using Entitas;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class UpdateTileSequenceSystem : ISetPool, IInitializeSystem, IReactiveSystem {
 
@@ -16,7 +15,7 @@ public class UpdateTileSequenceSystem : ISetPool, IInitializeSystem, IReactiveSy
     }
 
     public void Initialize() {
-        this.pool.SetTileSequence(new List<Entity>());
+        this.pool.CreateTileSequence();
     }
 
     public void Execute(List<Entity> entities) {
@@ -25,6 +24,7 @@ public class UpdateTileSequenceSystem : ISetPool, IInitializeSystem, IReactiveSy
             var tileSequence = this.pool.tileSequence.sequence;
             this.ProcessNextTileForSelection(currentTile, tileSequence);
             currentTile.IsTileSelected(false);
+            this.pool.ReplaceTileSequence(tileSequence);
         }
     }
 
@@ -46,7 +46,6 @@ public class UpdateTileSequenceSystem : ISetPool, IInitializeSystem, IReactiveSy
 
     private void AddTileToSequence(Entity newTile, IList<Entity> tileSequence) {
         tileSequence.Add(newTile);
-        Debug.Log("Added a newTile" + newTile.position.x + " " + newTile.position.y);
     }
 
     private bool CanBeAddedToTheSequence(Entity newTile, IList<Entity> tileSequence) {

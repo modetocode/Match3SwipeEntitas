@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Entitas;
+﻿using Entitas;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class RenderPositionSystem : IReactiveSystem, ISetPool {
             var currentEntity = entities[i];
             Vector3 endPosition = new Vector3(currentEntity.position.y, rowCount - currentEntity.position.x - 1, 0f);
             currentEntity.view.controller.position = endPosition + Vector3.up;
-            currentEntity.view.controller.transform.DOMove(endPosition, 0.3f);
+            currentEntity.view.controller.Move(endPosition, 0.3f);
         }
     }
 

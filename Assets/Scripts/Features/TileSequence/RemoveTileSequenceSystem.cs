@@ -15,10 +15,16 @@ public class RemoveTileSequenceSystem : ISetPool, IReactiveSystem {
 
     public void Execute(List<Entity> entities) {
         var sequence = pool.tileSequence.sequence;
-        for (int i = 0; i < sequence.Count; i++) {
-            sequence[i].isDestroy = true;
+        bool isValidSequence = sequence.Count > 2;
+        if (isValidSequence) {
+            for (int i = 0; i < sequence.Count; i++) {
+                sequence[i].isDestroy = true;
+            }
         }
 
-        pool.tileSequence.sequence.Clear();
+        sequence.Clear();
+        this.pool.ReplaceTileSequence(sequence);
+
+
     }
 }

@@ -6,6 +6,7 @@
         public const string PrismTilePrefabName = "Prism";
         public const string RubyTilePrefabName = "Ruby";
         public const string SapphireTilePrefabName = "Sapphire";
+        public const string TileSequencePrefabName = "TileSequence";
     }
 
     public static class LevelRun {

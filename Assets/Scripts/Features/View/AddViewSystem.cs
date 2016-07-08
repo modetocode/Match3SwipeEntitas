@@ -23,7 +23,7 @@ public class AddViewSystem : IReactiveSystem, ISetPool {
             var newObject = UnityEngine.Object.Instantiate(resourceTemplate);
             newObject.transform.SetParent(viewContainer);
             newObject.Link(currentEntity, this.pool);
-            currentEntity.AddView(newObject.GetComponent<ViewController>());
+            currentEntity.AddView(newObject.GetComponent<IViewController>());
         }
     }
 }

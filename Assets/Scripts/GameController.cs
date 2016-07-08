@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
             .Add(pool.CreateSystem<AddViewSystem>())
             .Add(pool.CreateSystem<RenderPositionSystem>())
             .Add(pool.CreateSystem<ProcessObjectSelectedInputSystem>())
+            .Add(pool.CreateSystem<RenderTileSequenceSystem>())
 
             //Destroy
             .Add(pool.CreateSystem<RemoveTileSequenceSystem>())

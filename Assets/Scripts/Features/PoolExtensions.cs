@@ -12,6 +12,10 @@ public static class PoolExtensions {
             .AddResource(GetTileResourcePath(type));
     }
 
+    public static Entity CreateTileSequence(this Pool pool) {
+        return pool.CreateEntity().AddTileSequence(new List<Entity>()).AddResource(Constants.Resources.TileSequencePrefabName);
+    }
+
     private static string GetTileResourcePath(TileType type) {
         switch (type) {
             case TileType.Amber:
