@@ -27,7 +27,7 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool {
     private void FillGameBoard(GameBoardComponent gameBoard) {
         for (int i = 0; i < gameBoard.rowCount; i++) {
             for (int j = 0; j < gameBoard.columnCount; j++) {
-                var newTile = this.pool.CreateRandomTile(i, j, gameBoard.possibleElements);
+                this.pool.CreateRandomTile(i, j, gameBoard.possibleElements);
             }
         }
     }
