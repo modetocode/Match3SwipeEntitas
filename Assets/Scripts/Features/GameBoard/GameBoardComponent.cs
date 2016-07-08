@@ -7,4 +7,5 @@ public class GameBoardComponent : IComponent {
     public int rowCount;
     public int columnCount;
     public IList<TileType> possibleElements;
+    public Entity[][] grid;
 }

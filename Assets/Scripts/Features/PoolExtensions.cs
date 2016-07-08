@@ -1,9 +1,11 @@
 ﻿using Entitas;
 using System;
+using System.Collections.Generic;
 
 public static class PoolExtensions {
 
-    public static Entity CreateTile(this Pool pool, int positionX, int positionY, TileType type) {
+    public static Entity CreateRandomTile(this Pool pool, int positionX, int positionY, IList<TileType> possibleTiles) {
+        TileType type = possibleTiles[UnityEngine.Random.Range(0, possibleTiles.Count)];
         return pool.CreateEntity()
             .AddTile(type)
             .AddPosition(positionX, positionY)

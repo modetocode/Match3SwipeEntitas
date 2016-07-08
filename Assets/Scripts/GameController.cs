@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour {
             .Add(pool.CreateSystem<GameBoardSystem>())
 
             //Update
+            .Add(pool.CreateSystem<FillTileSystem>())
             .Add(pool.CreateSystem<UpdateTileSequenceSystem>())
             .Add(pool.CreateSystem<AddViewSystem>())
             .Add(pool.CreateSystem<RenderPositionSystem>())
